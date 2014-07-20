@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=menutest
+Exec=menutest
+Name=menutest
+# translation example:
+# your app name in German locale (de)
+Name[de]=menutest
+
