@@ -33,28 +33,74 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: page
+    id: root
 
 
     ListModel {
         id: trackList
+        property string filterProperty: 'title'
 
         ListElement {
             artist: "Megadeth"
             title: "Countdown to Extinction"
-            length: "3:32"
+            album: ""
+            length: "03:32"
+        }
+
+        ListElement {
+            artist: "Amon Amarth"
+            title: "Shape Shifter"
+            album: "Deceiver of the Gods"
+            length: "04:02"
         }
     }
 
-ContactNameGroupView {
-
-
-}
-
-    // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
+        id: contentColumn
 
+        ContactNameGroupView {
+            id: nameGroupView
+            width: parent.width
+            opacity: enabled ? 1 : 0
+            dataModel: trackList
+            Behavior on opacity { FadeAnimation {} }
+
+            delegate: ListView {
+                width: parent.width
+                Label {text: name}
+            }
+
+            onActivated: {
+                // If height is reduced, allow the exterior flickable to reposition itself
+                if (newViewHeight > nameGroupView.height) {
+                    // Where should the list be positioned to show as much of the list as possible
+                    // (but also show one row beyond the list if possible)
+                    var maxVisiblePosition = nameGroupView.y + viewSectionY + newListHeight + rowHeight - root.height
+
+                    // Ensure up to two rows of group elements to show at the top
+                    var maxAllowedPosition = nameGroupView.y + Math.max(viewSectionY - (2 * rowHeight), 0)
+
+                    // Don't position beyond the end of the flickable
+                    var totalContentHeight = contentColumn.height + (newViewHeight - nameGroupView.height)
+                    var maxContentY = root.originY + totalContentHeight - root.height
+
+                    var newContentY = Math.max(Math.min(Math.min(maxVisiblePosition, maxAllowedPosition), maxContentY), 0)
+                    if (newContentY > root.contentY) {
+                        if (root._contentYBeforeGroupOpen < 0) {
+                            root._contentYBeforeGroupOpen = root.contentY
+                        }
+                        root._animateContentY(newContentY, heightAnimationDuration, heightAnimationEasing)
+                    }
+                }
+            }
+            onDeactivated: {
+                if (root._contentYBeforeGroupOpen >= 0) {
+                    root._animateContentY(root._contentYBeforeGroupOpen, heightAnimationDuration, heightAnimationEasing)
+                    root._contentYBeforeGroupOpen = -1
+                }
+            }
+        }
     }
 }
 

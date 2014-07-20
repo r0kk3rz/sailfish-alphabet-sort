@@ -16,6 +16,8 @@ Grid {
     property Item _currentResultsList
     property Item _alternateResultsList
 
+    property ListModel dataModel
+
     signal activated(real viewSectionY, real newListHeight, real newViewHeight, real heightAnimationDuration)
     signal deactivated(real heightAnimationDuration)
 
@@ -154,39 +156,123 @@ Grid {
         }
     }
 
-    PeopleModel {
-        id: onlineModel
-
-        filterType: PeopleModel.FilterOnline
-        requiredProperty: root.requiredProperty
-    }
-
     ListModel {
         id: emptyModel
-    }
-
-    ContactNameGroup {
-        id: onlineGroup
-
-        width: root.rowWidth
-        baseHeight: root.rowHeight
-        height: baseHeight + (groupResultsList !== null ? groupResultsList.height : 0)
-        active: root._currActiveGroup === onlineGroup && hasEntries
-
-        iconSource: 'image://theme/icon-m-region'
-        groupIndex: 0
-        hasEntries: onlineModel.count > 0
-
-        onClicked: _activate(onlineGroup)
-        onActiveChanged: _deactivate(onlineGroup)
     }
 
     Repeater {
         id: groupsRepeater
 
-        model: PeopleNameGroupModel {
+        model: ListModel {
             id: groupModel
-            requiredProperty: root.requiredProperty
+            ListElement {
+                name: "A"
+                entryCount: 5
+            }
+            ListElement {
+                name: "B"
+                entryCount: 2
+            }
+            ListElement {
+                name: "C"
+                entryCount: 0
+            }
+            ListElement {
+                name: "D"
+                entryCount: 0
+            }
+            ListElement {
+                name: "E"
+                entryCount: 0
+            }
+            ListElement {
+                name: "F"
+                entryCount: 0
+            }
+            ListElement {
+                name: "G"
+                entryCount: 0
+            }
+            ListElement {
+                name: "H"
+                entryCount: 0
+            }
+            ListElement {
+                name: "I"
+                entryCount: 0
+            }
+            ListElement {
+                name: "J"
+                entryCount: 0
+            }
+            ListElement {
+                name: "K"
+                entryCount: 0
+            }
+            ListElement {
+                name: "L"
+                entryCount: 0
+            }
+            ListElement {
+                name: "M"
+                entryCount: 0
+            }
+            ListElement {
+                name: "N"
+                entryCount: 0
+            }
+            ListElement {
+                name: "O"
+                entryCount: 0
+            }
+            ListElement {
+                name: "P"
+                entryCount: 0
+            }
+            ListElement {
+                name: "Q"
+                entryCount: 0
+            }
+            ListElement {
+                name: "R"
+                entryCount: 0
+            }
+            ListElement {
+                name: "S"
+                entryCount: 0
+            }
+            ListElement {
+                name: "T"
+                entryCount: 0
+            }
+            ListElement {
+                name: "U"
+                entryCount: 0
+            }
+            ListElement {
+                name: "V"
+                entryCount: 0
+            }
+            ListElement {
+                name: "W"
+                entryCount: 0
+            }
+            ListElement {
+                name: "X"
+                entryCount: 0
+            }
+            ListElement {
+                name: "Y"
+                entryCount: 0
+            }
+            ListElement {
+                name: "Z"
+                entryCount: 0
+            }
+            ListElement {
+                name: "#"
+                entryCount: 0
+            }
         }
 
         ContactNameGroup {
@@ -198,7 +284,7 @@ Grid {
             active: root._currActiveGroup === groupDelegate && hasEntries
 
             name: model.name
-            groupIndex: model.index + 1 // the online group is at collective index 0
+            groupIndex: model.index
             hasEntries: model.entryCount > 0
 
             onClicked: _activate(groupDelegate)
@@ -224,13 +310,9 @@ Grid {
             }
 
             function open(name, index) {
-                if (index == 0) {
-                    model = onlineModel
-                } else {
-                    filterModel.filterPattern = ''
-                    filterModel.filterPattern = name
-                    model = filterModel
-                }
+                filterModel.filterPattern = ''
+                filterModel.filterPattern = name
+                model = filterModel
 
                 heightAnimationDuration = root._groupListOpenAnimationDuration(groupIndex, model.count)
                 if (state == "active") {
@@ -250,11 +332,21 @@ Grid {
             delegate: root.delegate
             cacheBuffer: itemHeight * 10
 
-            PeopleModel {
+            ListModel {
                 id: filterModel
-                filterType: PeopleModel.FilterNone
-                searchByFirstNameCharacter: true
-                requiredProperty: root.requiredProperty
+                property string filterPattern: ''
+                ListElement {
+                    name: "test element"
+                }
+                ListElement {
+                    name: "test element"
+                }
+                ListElement {
+                    name: "test element"
+                }
+                ListElement {
+                    name: "test element"
+                }
             }
 
             width: root.width
