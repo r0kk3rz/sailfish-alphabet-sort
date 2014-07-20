@@ -31,7 +31,8 @@ Grid {
     }
 
     function _lastIndexInRow(index) {
-        var lastIndexInRow = ((Math.floor(index / columns) + 1) * root.columns) - 1
+        var lastIndexInRow = ((Math.floor(
+                                   index / columns) + 1) * root.columns) - 1
         var maxIndex = groupsRepeater.count // including the online group
         return lastIndexInRow > maxIndex ? maxIndex : lastIndexInRow
     }
@@ -43,10 +44,13 @@ Grid {
             return _currentResultsList
         }
 
-        if (_currentResultsList.active || (_alternateResultsList !== null && _alternateResultsList.parent === parent)) {
+        if (_currentResultsList.active
+                || (_alternateResultsList !== null
+                    && _alternateResultsList.parent === parent)) {
             if (_alternateResultsList === null) {
                 _alternateResultsList = _currentResultsList
-                _currentResultsList = groupResultsListComponent.createObject(parent)
+                _currentResultsList = groupResultsListComponent.createObject(
+                            parent)
             } else {
                 var item = _alternateResultsList
                 _alternateResultsList = _currentResultsList
@@ -54,7 +58,8 @@ Grid {
             }
         }
 
-        if (_currentResultsList.parent !== null && _currentResultsList.parent !== parent)
+        if (_currentResultsList.parent !== null
+                && _currentResultsList.parent !== parent)
             _currentResultsList.parent.groupResultsList = null
         _currentResultsList.parent = parent
         parent.groupResultsList = _currentResultsList
@@ -105,8 +110,8 @@ Grid {
     }
 
     function _activate(group) {
-        if ((_currentResultsList && _currentResultsList.animating) ||
-            (_alternateResultsList && _alternateResultsList.animating)) {
+        if ((_currentResultsList && _currentResultsList.animating)
+                || (_alternateResultsList && _alternateResultsList.animating)) {
             // Wait til the previous animation completes before activating another
             return
         }
@@ -117,27 +122,30 @@ Grid {
             }
             _currActiveGroup = null
         } else if (group.hasEntries) {
-            root.focus = true   // remove focus from search box
+            root.focus = true // remove focus from search box
 
-            var heightAnimationDuration = _openGroupList(group.name, group.groupIndex)
-            if (_alternateResultsList !== null && _alternateResultsList.active) {
+            var heightAnimationDuration = _openGroupList(group.name,
+                                                         group.groupIndex)
+            if (_alternateResultsList !== null
+                    && _alternateResultsList.active) {
                 // the currently open list must close at the same rate as the new open list
                 _alternateResultsList.heightAnimationDuration = heightAnimationDuration
             }
             _currActiveGroup = group
 
             var listHeight = _groupListHeight(group.groupIndex)
-            activated((Math.floor(group.groupIndex / columns) + 1) * group.baseHeight,
-                      listHeight,
-                      (group.baseHeight * rows) + listHeight,
+            activated((Math.floor(
+                           group.groupIndex / columns) + 1) * group.baseHeight,
+                      listHeight, (group.baseHeight * rows) + listHeight,
                       heightAnimationDuration)
         }
     }
 
     function _deactivate(group) {
         if (!group.active) {
-            if ((_currActiveGroup == null) ||
-                Math.floor(_currActiveGroup.groupIndex / columns) !== Math.floor(group.groupIndex / columns)) {
+            if ((_currActiveGroup == null) || Math.floor(
+                        _currActiveGroup.groupIndex / columns) !== Math.floor(
+                        group.groupIndex / columns)) {
                 _closeGroupList(group.groupIndex)
             }
         }
@@ -146,7 +154,8 @@ Grid {
     onColumnsChanged: {
         if (_currActiveGroup !== null) {
             var oldLastItem = _currentResultsList.parent
-            var newLastItem = _groupAtIndex(_lastIndexInRow(_currActiveGroup.groupIndex))
+            var newLastItem = _groupAtIndex(_lastIndexInRow(
+                                                _currActiveGroup.groupIndex))
             if (oldLastItem !== newLastItem) {
                 _currentResultsList.parent = newLastItem
                 newLastItem.groupResultsList = _currentResultsList
@@ -156,124 +165,127 @@ Grid {
         }
     }
 
+    //Empty List
     ListModel {
         id: emptyModel
     }
 
+    //List to iterate over and build out top menu
+    ListModel {
+        id: groupModel
+        ListElement {
+            name: "A"
+            entryCount: 1
+        }
+        ListElement {
+            name: "B"
+            entryCount: 1
+        }
+        ListElement {
+            name: "C"
+            entryCount: 1
+        }
+        ListElement {
+            name: "D"
+            entryCount: 1
+        }
+        ListElement {
+            name: "E"
+            entryCount: 0
+        }
+        ListElement {
+            name: "F"
+            entryCount: 1
+        }
+        ListElement {
+            name: "G"
+            entryCount: 0
+        }
+        ListElement {
+            name: "H"
+            entryCount: 1
+        }
+        ListElement {
+            name: "I"
+            entryCount: 0
+        }
+        ListElement {
+            name: "J"
+            entryCount: 0
+        }
+        ListElement {
+            name: "K"
+            entryCount: 0
+        }
+        ListElement {
+            name: "L"
+            entryCount: 0
+        }
+        ListElement {
+            name: "M"
+            entryCount: 0
+        }
+        ListElement {
+            name: "N"
+            entryCount: 0
+        }
+        ListElement {
+            name: "O"
+            entryCount: 0
+        }
+        ListElement {
+            name: "P"
+            entryCount: 0
+        }
+        ListElement {
+            name: "Q"
+            entryCount: 0
+        }
+        ListElement {
+            name: "R"
+            entryCount: 0
+        }
+        ListElement {
+            name: "S"
+            entryCount: 1
+        }
+        ListElement {
+            name: "T"
+            entryCount: 0
+        }
+        ListElement {
+            name: "U"
+            entryCount: 1
+        }
+        ListElement {
+            name: "V"
+            entryCount: 0
+        }
+        ListElement {
+            name: "W"
+            entryCount: 1
+        }
+        ListElement {
+            name: "X"
+            entryCount: 0
+        }
+        ListElement {
+            name: "Y"
+            entryCount: 0
+        }
+        ListElement {
+            name: "Z"
+            entryCount: 0
+        }
+        ListElement {
+            name: "#"
+            entryCount: 0
+        }
+    }
+
     Repeater {
         id: groupsRepeater
-
-        model: ListModel {
-            id: groupModel
-            ListElement {
-                name: "A"
-                entryCount: 5
-            }
-            ListElement {
-                name: "B"
-                entryCount: 2
-            }
-            ListElement {
-                name: "C"
-                entryCount: 0
-            }
-            ListElement {
-                name: "D"
-                entryCount: 0
-            }
-            ListElement {
-                name: "E"
-                entryCount: 0
-            }
-            ListElement {
-                name: "F"
-                entryCount: 0
-            }
-            ListElement {
-                name: "G"
-                entryCount: 0
-            }
-            ListElement {
-                name: "H"
-                entryCount: 0
-            }
-            ListElement {
-                name: "I"
-                entryCount: 0
-            }
-            ListElement {
-                name: "J"
-                entryCount: 0
-            }
-            ListElement {
-                name: "K"
-                entryCount: 0
-            }
-            ListElement {
-                name: "L"
-                entryCount: 0
-            }
-            ListElement {
-                name: "M"
-                entryCount: 0
-            }
-            ListElement {
-                name: "N"
-                entryCount: 0
-            }
-            ListElement {
-                name: "O"
-                entryCount: 0
-            }
-            ListElement {
-                name: "P"
-                entryCount: 0
-            }
-            ListElement {
-                name: "Q"
-                entryCount: 0
-            }
-            ListElement {
-                name: "R"
-                entryCount: 0
-            }
-            ListElement {
-                name: "S"
-                entryCount: 0
-            }
-            ListElement {
-                name: "T"
-                entryCount: 0
-            }
-            ListElement {
-                name: "U"
-                entryCount: 0
-            }
-            ListElement {
-                name: "V"
-                entryCount: 0
-            }
-            ListElement {
-                name: "W"
-                entryCount: 0
-            }
-            ListElement {
-                name: "X"
-                entryCount: 0
-            }
-            ListElement {
-                name: "Y"
-                entryCount: 0
-            }
-            ListElement {
-                name: "Z"
-                entryCount: 0
-            }
-            ListElement {
-                name: "#"
-                entryCount: 0
-            }
-        }
+        model: groupModel
 
         ContactNameGroup {
             id: groupDelegate
@@ -300,7 +312,8 @@ Grid {
 
             property real groupIndex
             property real heightAnimationDuration
-            property bool animating: heightAnimation.running || fadeInAnimation.running
+            property bool animating: heightAnimation.running
+                                     || fadeInAnimation.running
 
             property bool active: height > 0
             onActiveChanged: {
@@ -312,9 +325,11 @@ Grid {
             function open(name, index) {
                 filterModel.filterPattern = ''
                 filterModel.filterPattern = name
+                filterModel.filter()
                 model = filterModel
 
-                heightAnimationDuration = root._groupListOpenAnimationDuration(groupIndex, model.count)
+                heightAnimationDuration = root._groupListOpenAnimationDuration(
+                            groupIndex, model.count)
                 if (state == "active") {
                     // already active, re-fade in with the new list contents
                     fadeInAnimation.start()
@@ -332,20 +347,24 @@ Grid {
             delegate: root.delegate
             cacheBuffer: itemHeight * 10
 
+
+            //iterates through dataModel and checks title field against filterPattern
+            //on match it adds item to filtermodel for display
             ListModel {
                 id: filterModel
-                property string filterPattern: ''
-                ListElement {
-                    name: "test element"
-                }
-                ListElement {
-                    name: "test element"
-                }
-                ListElement {
-                    name: "test element"
-                }
-                ListElement {
-                    name: "test element"
+                property string filterPattern
+
+                function filter() {
+                    filterModel.clear()
+
+                    for(var i=0; (dataModel.count - 1) >= i; i++)
+                    {
+                        filterPattern.charAt(0)
+                        if(dataModel.get(i).title.charAt(0) === filterPattern.charAt(0) )
+                        {
+                            filterModel.append(dataModel.get(i))
+                        }
+                    }
                 }
             }
 
@@ -378,7 +397,8 @@ Grid {
                 id: fadeInAnimation
                 target: resultsView
                 property: "opacity"
-                from: 0.3; to: 1
+                from: 0.3
+                to: 1
                 duration: 300
                 easing.type: Easing.InOutQuad
             }

@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name></name>
+    <message id="components_contacts-ph-search_people">
+        <source>Search people</source>
+        <extracomment>Contacts list</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_contacts-la-no_people">
+        <source>No people</source>
+        <extracomment>Displayed when there are no contacts</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_contacts-la-deleting">
+        <source>Deleting</source>
+        <extracomment>Deleting in n seconds</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>My Cover</source>
@@ -12,27 +30,26 @@
     <name>FirstPage</name>
     <message>
         <source>Show Page 2</source>
-        <translation>Zur Seite 2</translation>
+        <translation type="obsolete">Zur Seite 2</translation>
     </message>
     <message>
         <source>UI Template</source>
-        <translation>UI-Vorlage</translation>
+        <translation type="obsolete">UI-Vorlage</translation>
     </message>
     <message>
         <source>Hello Sailors</source>
-        <translation>Hallo Matrosen</translation>
+        <translation type="obsolete">Hallo Matrosen</translation>
     </message>
 </context>
 <context>
     <name>SecondPage</name>
     <message>
         <source>Nested Page</source>
-        <translation>Unterseite</translation>
+        <translation type="obsolete">Unterseite</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Element</translation>
+        <translation type="obsolete">Element</translation>
     </message>
 </context>
 </TS>
-

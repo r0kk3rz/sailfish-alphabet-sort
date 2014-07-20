@@ -24,11 +24,8 @@ OTHER_FILES += qml/menutest.qml \
     rpm/menutest.yaml \
     translations/*.ts \
     menutest.desktop \
-    qml/pages/ContactSearchView.qml \
     qml/pages/ContactNameGroupView.qml \
-    qml/pages/ContactNameGroup.qml \
-    qml/pages/ContactBrowserItem.qml \
-    qml/pages/ContactBrowser.qml
+    qml/pages/ContactNameGroup.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
