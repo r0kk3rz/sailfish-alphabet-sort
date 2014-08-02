@@ -18,14 +18,15 @@ SOURCES += src/menutest.cpp
 
 OTHER_FILES += qml/menutest.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
     rpm/menutest.changes.in \
     rpm/menutest.spec \
     rpm/menutest.yaml \
     translations/*.ts \
     menutest.desktop \
-    qml/pages/ContactNameGroupView.qml \
-    qml/pages/ContactNameGroup.qml
+    qml/pages/ContactNameGroup.qml \
+    qml/pages/AlphaMenu.qml \
+    qml/pages/Example.qml \
+    qml/pages/AlphaMenuGroupView.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

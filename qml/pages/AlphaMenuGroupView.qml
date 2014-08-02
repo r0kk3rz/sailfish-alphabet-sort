@@ -24,16 +24,13 @@ Grid {
     columns: Math.floor(width / Theme.itemSizeMedium)
 
     function _groupAtIndex(index) {
-        if (index == 0) {
-            return onlineGroup
-        }
-        return groupsRepeater.itemAt(index - 1)
+        return groupsRepeater.itemAt(index)
     }
 
     function _lastIndexInRow(index) {
         var lastIndexInRow = ((Math.floor(
                                    index / columns) + 1) * root.columns) - 1
-        var maxIndex = groupsRepeater.count // including the online group
+        var maxIndex = groupsRepeater.count
         return lastIndexInRow > maxIndex ? maxIndex : lastIndexInRow
     }
 
@@ -122,7 +119,6 @@ Grid {
             }
             _currActiveGroup = null
         } else if (group.hasEntries) {
-            root.focus = true // remove focus from search box
 
             var heightAnimationDuration = _openGroupList(group.name,
                                                          group.groupIndex)
@@ -173,115 +169,55 @@ Grid {
     //List to iterate over and build out top menu
     ListModel {
         id: groupModel
-        ListElement {
-            name: "A"
-            entryCount: 1
+
+        ListElement { name: "A"; entryCount: 0 }
+        ListElement { name: "B"; entryCount: 0 }
+        ListElement { name: "C"; entryCount: 0 }
+        ListElement { name: "D"; entryCount: 0 }
+        ListElement { name: "E"; entryCount: 0 }
+        ListElement { name: "F"; entryCount: 0 }
+        ListElement { name: "G"; entryCount: 0 }
+        ListElement { name: "H"; entryCount: 0 }
+        ListElement { name: "I"; entryCount: 0 }
+        ListElement { name: "J"; entryCount: 0 }
+        ListElement { name: "K"; entryCount: 0 }
+        ListElement { name: "L"; entryCount: 0 }
+        ListElement { name: "M"; entryCount: 0 }
+        ListElement { name: "N"; entryCount: 0 }
+        ListElement { name: "O"; entryCount: 0 }
+        ListElement { name: "P"; entryCount: 0 }
+        ListElement { name: "Q"; entryCount: 0 }
+        ListElement { name: "R"; entryCount: 0 }
+        ListElement { name: "S"; entryCount: 0 }
+        ListElement { name: "T"; entryCount: 0 }
+        ListElement { name: "U"; entryCount: 0 }
+        ListElement { name: "V"; entryCount: 0 }
+        ListElement { name: "W"; entryCount: 0 }
+        ListElement { name: "X"; entryCount: 0 }
+        ListElement { name: "Y"; entryCount: 0 }
+        ListElement { name: "Z"; entryCount: 0 }
+        ListElement { name: "#"; entryCount: 0 }
+
+        function countItems()
+        {
+            for(var i=0; (dataModel.count - 1) >= i; i++)
+            {
+                var index = dataModel.get(i).title.charAt(0)
+
+                for(var j=0; (groupModel.count - 1 ) >= j; j++)
+                {
+                    if(groupModel.get(j).name === index.toUpperCase())
+                    {
+                        groupModel.setProperty(j, "entryCount", groupModel.get(j).entryCount + 1 )
+
+                    }
+                }
+            }
         }
-        ListElement {
-            name: "B"
-            entryCount: 1
-        }
-        ListElement {
-            name: "C"
-            entryCount: 1
-        }
-        ListElement {
-            name: "D"
-            entryCount: 1
-        }
-        ListElement {
-            name: "E"
-            entryCount: 0
-        }
-        ListElement {
-            name: "F"
-            entryCount: 1
-        }
-        ListElement {
-            name: "G"
-            entryCount: 0
-        }
-        ListElement {
-            name: "H"
-            entryCount: 1
-        }
-        ListElement {
-            name: "I"
-            entryCount: 0
-        }
-        ListElement {
-            name: "J"
-            entryCount: 0
-        }
-        ListElement {
-            name: "K"
-            entryCount: 0
-        }
-        ListElement {
-            name: "L"
-            entryCount: 0
-        }
-        ListElement {
-            name: "M"
-            entryCount: 0
-        }
-        ListElement {
-            name: "N"
-            entryCount: 0
-        }
-        ListElement {
-            name: "O"
-            entryCount: 0
-        }
-        ListElement {
-            name: "P"
-            entryCount: 0
-        }
-        ListElement {
-            name: "Q"
-            entryCount: 0
-        }
-        ListElement {
-            name: "R"
-            entryCount: 0
-        }
-        ListElement {
-            name: "S"
-            entryCount: 1
-        }
-        ListElement {
-            name: "T"
-            entryCount: 0
-        }
-        ListElement {
-            name: "U"
-            entryCount: 1
-        }
-        ListElement {
-            name: "V"
-            entryCount: 0
-        }
-        ListElement {
-            name: "W"
-            entryCount: 1
-        }
-        ListElement {
-            name: "X"
-            entryCount: 0
-        }
-        ListElement {
-            name: "Y"
-            entryCount: 0
-        }
-        ListElement {
-            name: "Z"
-            entryCount: 0
-        }
-        ListElement {
-            name: "#"
-            entryCount: 0
-        }
+
+        Component.onCompleted: countItems();
     }
+
 
     Repeater {
         id: groupsRepeater
